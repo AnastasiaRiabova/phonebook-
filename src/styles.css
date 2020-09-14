@@ -1,0 +1,21 @@
+.search-Items {
+  display: block;
+}
+
+.input-item {
+  margin-left: 20px;
+}
+
+.input-item-second {
+  margin-left: 17px;
+  margin-bottom: 20px;
+}
+
+.contact-item {
+  display: inline-block;
+  margin-right: 20 px;
+}
+
+.btn-contact {
+  margin-left: 20px;
+}
