@@ -10,7 +10,7 @@ const itemsReducer = (state = [], { type, payload }) => {
       return state.filter(item => item.id !== payload);
 
     case phonebookTypes.SET:
-      return payload;
+      return [...state, ...payload];
 
     default:
       return state;

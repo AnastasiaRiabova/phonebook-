@@ -11,25 +11,19 @@ import actions from '../redux/actions';
 
 export class App extends Component {
   componentDidMount() {
-    console.log('App componentDidMount');
     const AllContact = localStorage.getItem('contacts');
     const parsedContact = JSON.parse(AllContact);
-    console.log(parsedContact);
 
     if (parsedContact) {
-      this.props.setContacts();
+      this.props.setContacts(parsedContact);
     }
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   // console.log('didUpdate');
-
-  //   if (this.state.contacts !== prevState.contacts) {
-  //     // console.log('not same');
-
-  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.items !== prevProps.items) {
+      localStorage.setItem('contacts', JSON.stringify(this.props.items));
+    }
+  }
 
   render() {
     return (
