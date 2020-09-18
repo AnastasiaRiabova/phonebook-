@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import actions from '../../redux/actions';
-import Alert from './AlertForm';
 
 export class PhoneForm extends Component {
   state = {
@@ -9,18 +8,13 @@ export class PhoneForm extends Component {
     number: '',
     alert: false,
   };
-  // связь события на инпуте и получемыми новыми данными в инпут, запись данных в сетСтейт
-  // console.log(e.currentTarget.name); - получаем доступ к ключу/ключам объекта Стейт
-  // console.log(e.currentTarget.value);-получаем значение инпута и сзвязываем их,
-  //   [] - обращение к ключу объекта
+
   inputSearchNewState = e => {
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
 
-  // на событие формы вызываем функцию(submitForm) и передаем в нее
-  // текущее значение Стейт, которое записываем выше
   onSubmitForm = e => {
     e.preventDefault();
 
@@ -30,11 +24,10 @@ export class PhoneForm extends Component {
       setTimeout(() => this.setState({ alert: false }), 3000);
     } else {
       this.props.submitForm(this.state);
-      this.reset();
     }
+    this.reset();
   };
 
-  // затираем Стейт после субмита данных
   reset = () => {
     this.setState({
       name: '',
@@ -45,7 +38,7 @@ export class PhoneForm extends Component {
   render() {
     return (
       <>
-        {this.state.alert && <Alert />}
+        {this.state.alert && <h1>Already exist</h1>}
         <form onSubmit={this.onSubmitForm}>
           <label className="search-Items">
             Name
@@ -53,8 +46,6 @@ export class PhoneForm extends Component {
               className="input-item"
               type="text"
               name="name"
-              // value-записывает новое значение Стейта,
-              // как бы инпут видит стейт,а не только стейт инпут
               value={this.state.name}
               onChange={this.inputSearchNewState}
             />
@@ -86,14 +77,4 @@ const mapDispatchToProps = {
   submitForm: actions.createNewPhoneNumber,
 };
 
-// const mapDispachToProps = dispatch => {
-//   if()
-//   return {
-//     submitForm: data => dispatch(actions.createNewPhoneNumber(data)),
-//   };
-// };
-
 export default connect(mapStateToProps, mapDispatchToProps)(PhoneForm);
-
-//     setTimeout(() => this.setState({ alert: false }), 1000);
-//   } else

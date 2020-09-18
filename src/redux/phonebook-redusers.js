@@ -9,6 +9,9 @@ const itemsReducer = (state = [], { type, payload }) => {
     case phonebookTypes.REMOVE:
       return state.filter(item => item.id !== payload);
 
+    case phonebookTypes.SET:
+      return payload;
+
     default:
       return state;
   }

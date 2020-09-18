@@ -20,9 +20,19 @@ const removeContact = id => ({
   payload: id,
 });
 
+const setContacts = value => ({
+  type: phonebookTypes.SET,
+  payload: value,
+});
+const getContacts = value => ({
+  type: phonebookTypes.GET,
+  payload: value,
+});
+
 export default {
   createNewPhoneNumber,
   filterContacts,
   removeContact,
-  // getContact,
+  setContacts,
+  getContacts,
 };
