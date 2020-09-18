@@ -1,21 +1,47 @@
 .search-Items {
   display: block;
+  color: rgb(235, 83, 24);
 }
 
 .input-item {
   margin-left: 20px;
+  background-color: rgba(205, 191, 191, 0.585);
 }
 
 .input-item-second {
   margin-left: 17px;
   margin-bottom: 20px;
+  background-color: rgba(205, 191, 191, 0.585);
 }
 
 .contact-item {
   display: inline-block;
-  margin-right: 20 px;
+  margin-right: 20px;
+  margin-left: 5px;
 }
 
+.btn {
+  /* border-radius: 100%; */
+  background-color: rgba(205, 191, 191, 0.585);
+}
 .btn-contact {
   margin-left: 20px;
+  background-color: rgba(205, 191, 191, 0.585);
+  /* border-radius: 100%; */
+}
+body {
+  background-image: url('./components/pexels-bongkarn-thanyakij-3774057.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+#root {
+  width: 400px;
+  height: 575px;
+  background-color: rgba(225, 220, 213, 0.742);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  border-radius: 10px;
 }
