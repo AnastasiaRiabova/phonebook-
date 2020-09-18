@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import actions from '../../redux/actions';
+import Alert from './AlertForm';
 
 export class PhoneForm extends Component {
   state = {
     name: '',
     number: '',
+    alert: false,
   };
   // связь события на инпуте и получемыми новыми данными в инпут, запись данных в сетСтейт
   // console.log(e.currentTarget.name); - получаем доступ к ключу/ключам объекта Стейт
@@ -19,8 +23,15 @@ export class PhoneForm extends Component {
   // текущее значение Стейт, которое записываем выше
   onSubmitForm = e => {
     e.preventDefault();
-    this.props.submitForm(this.state);
-    this.reset();
+
+    if (this.props.items.some(el => el.name === this.state.name)) {
+      console.log('hi');
+      this.setState({ alert: true });
+      setTimeout(() => this.setState({ alert: false }), 3000);
+    } else {
+      this.props.submitForm(this.state);
+      this.reset();
+    }
   };
 
   // затираем Стейт после субмита данных
@@ -34,6 +45,7 @@ export class PhoneForm extends Component {
   render() {
     return (
       <>
+        {this.state.alert && <Alert />}
         <form onSubmit={this.onSubmitForm}>
           <label className="search-Items">
             Name
@@ -57,11 +69,31 @@ export class PhoneForm extends Component {
               onChange={this.inputSearchNewState}
             />
           </label>
-          <button type="submit">Add contact</button>
+          <button className="btn" type="submit">
+            Add contact
+          </button>
         </form>
       </>
     );
   }
 }
 
-export default PhoneForm;
+const mapStateToProps = state => ({
+  items: state.contacts.items,
+});
+
+const mapDispatchToProps = {
+  submitForm: actions.createNewPhoneNumber,
+};
+
+// const mapDispachToProps = dispatch => {
+//   if()
+//   return {
+//     submitForm: data => dispatch(actions.createNewPhoneNumber(data)),
+//   };
+// };
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhoneForm);
+
+//     setTimeout(() => this.setState({ alert: false }), 1000);
+//   } else

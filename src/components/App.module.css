@@ -1,0 +1,19 @@
+.titleItem {
+  color: rgb(235, 83, 24);
+}
+.appear {
+  transform: translateY(-100%);
+}
+
+.appearActive {
+  transform: translateY(0%);
+  transition: transform 500ms linear;
+}
+
+h1 {
+  margin: 0;
+}
+
+.text {
+  color: rgb(235, 83, 24);
+}
