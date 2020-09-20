@@ -2,9 +2,11 @@ import React from 'react';
 import s from './toRenderContact.module.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import actions from '../../redux/actions';
+import operations from '../../redux/phonebook-operations';
+import selectors from '../../redux/phonebook-selectors';
 
 const RenderContact = ({ items, removeId }) => {
+  // console.log(items);
   return (
     <TransitionGroup component="ul">
       {items.map(({ id, name, number }) => (
@@ -30,20 +32,10 @@ const RenderContact = ({ items, removeId }) => {
   );
 };
 
-const mapStateToProps = state => {
-  const { items, filter } = state.contacts;
-  const normalizedFilter = filter.toLowerCase();
-
-  const getFilterdTasks = items.filter(el =>
-    el.name.toLowerCase().includes(normalizedFilter),
-  );
-  return {
-    items: getFilterdTasks,
-  };
-};
+const mapStateToProps = state => ({ items: selectors.getFilterdTasks(state) });
 
 const mapDispachToProps = dispatch => ({
-  removeId: id => dispatch(actions.removeContact(id)),
+  removeId: id => dispatch(operations.removeContact(id)),
 });
 
 export default connect(mapStateToProps, mapDispachToProps)(RenderContact);

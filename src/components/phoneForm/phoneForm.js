@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import actions from '../../redux/actions';
+import operations from '../../redux/phonebook-operations';
+import selectors from '../../redux/phonebook-selectors';
 
 export class PhoneForm extends Component {
   state = {
@@ -19,7 +20,7 @@ export class PhoneForm extends Component {
     e.preventDefault();
 
     if (this.props.items.some(el => el.name === this.state.name)) {
-      console.log('hi');
+      // console.log('hi');s
       this.setState({ alert: true });
       setTimeout(() => this.setState({ alert: false }), 3000);
     } else {
@@ -36,6 +37,7 @@ export class PhoneForm extends Component {
   };
 
   render() {
+    // console.log(this.props.items);
     return (
       <>
         {this.state.alert && <h1>Already exist</h1>}
@@ -70,11 +72,11 @@ export class PhoneForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.contacts.items,
+  items: selectors.getItems(state),
 });
 
 const mapDispatchToProps = {
-  submitForm: actions.createNewPhoneNumber,
+  submitForm: operations.createNewPhoneNumber,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhoneForm);

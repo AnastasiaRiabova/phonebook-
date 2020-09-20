@@ -2,6 +2,7 @@ import React from 'react';
 import s from './toRenderContact.module.css';
 import { connect } from 'react-redux';
 import actions from '../../redux/actions';
+import selectors from '../../redux/phonebook-selectors';
 
 const FindContact = ({ filterChange, value }) => {
   return (
@@ -18,7 +19,7 @@ const FindContact = ({ filterChange, value }) => {
 };
 
 const mapStateToProps = state => ({
-  value: state.contacts.filter,
+  value: selectors.getFilter(state),
 });
 
 const mapDispatchToProps = dispatch => ({
