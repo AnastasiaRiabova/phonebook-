@@ -1,8 +1,7 @@
 {
-  "name": "goit-react-hw-01-components",
+  "name": "phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://Dmytro-Chernomord.github.io/goit-react-hw-01-components",
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
