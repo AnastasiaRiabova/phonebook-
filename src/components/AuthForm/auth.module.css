@@ -1,0 +1,141 @@
+.user {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.userName {
+  margin-right: 5px;
+  background-color: rgba(255, 255, 255, 0.441);
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  color: rgb(94, 6, 5);
+  font-size: large;
+  font-weight: bold;
+  display: inline-block;
+  padding: 6px;
+  text-align: center;
+}
+
+/* .userNew {
+  margin-right: 3px;
+} */
+.userN {
+  /* position: relative; */
+  display: inline-block;
+  top: -63px;
+  right: -150px;
+}
+
+.validation {
+  position: absolute;
+  left: -79px;
+  top: 4px;
+  color: red;
+}
+
+.fieldContainer {
+  position: relative;
+  padding-left: 10px;
+}
+.fieldContainer:not(:last-child) {
+  margin-bottom: 20px;
+}
+.input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #323131;
+  font-family: Verdana;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: #131416;
+  padding: 10px;
+  width: 100%;
+}
+.input:focus {
+  outline: none;
+}
+
+.formContainer {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  /* padding-left: 40px; */
+  display: flex;
+  flex-direction: column;
+  max-width: 240px;
+  /* padding-bottom: 60px; */
+  /* margin-left: 20px; */
+  margin-bottom: 40px;
+  /* margin-right: auto; */
+}
+.button {
+  width: 150px;
+  height: 30px;
+  font-family: Verdana;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  border-radius: 30px;
+  transition: all linear 250ms;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  /* margin-left: 165px; */
+}
+.button:focus {
+  outline: none;
+}
+.white {
+  border: 2px solid brown;
+  background: #ffffff;
+  color: brown;
+}
+.white:hover,
+.white:focus {
+  border: 2px solid transparent;
+  background: brown;
+  color: white;
+}
+
+.buttonLogout {
+  width: 100px;
+  height: 30px;
+  color: brown;
+  font-family: Verdana;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  border-radius: 30px;
+  transition: all linear 250ms;
+  margin-left: auto;
+  cursor: pointer;
+  border: none;
+}
+
+.buttonLogout:hover,
+.buttonLogout:focus {
+  border: 2px solid brown;
+  background: brown;
+  color: white;
+}
+
+.userMenu {
+  margin: auto;
+  font-family: Verdana;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: brown;
+}

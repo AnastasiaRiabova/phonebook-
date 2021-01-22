@@ -1,80 +1,120 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import actions from '../../redux/actions';
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import MaskedInput from 'react-text-mask';
+import operations from '../../redux/phoneBook/phonebook-operations';
+import selectors from '../../redux/phoneBook/phonebook-selectors';
+import styles from '../AuthForm/auth.module.css';
 
-export class PhoneForm extends Component {
-  state = {
-    name: '',
-    number: '',
-    alert: false,
-  };
-
-  inputSearchNewState = e => {
-    this.setState({
-      [e.currentTarget.name]: e.currentTarget.value,
-    });
-  };
-
-  onSubmitForm = e => {
-    e.preventDefault();
-
-    if (this.props.items.some(el => el.name === this.state.name)) {
-      console.log('hi');
-      this.setState({ alert: true });
-      setTimeout(() => this.setState({ alert: false }), 3000);
-    } else {
-      this.props.submitForm(this.state);
-    }
-    this.reset();
-  };
-
-  reset = () => {
-    this.setState({
-      name: '',
-      number: '',
-    });
-  };
-
-  render() {
-    return (
-      <>
-        {this.state.alert && <h1>Already exist</h1>}
-        <form onSubmit={this.onSubmitForm}>
-          <label className="search-Items">
-            Name
-            <input
-              className="input-item"
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.inputSearchNewState}
-            />
-          </label>
-          <label className="search-Items">
-            Phone
-            <input
-              className="input-item-second"
-              type="tel"
-              name="number"
-              value={this.state.number}
-              onChange={this.inputSearchNewState}
-            />
-          </label>
-          <button className="btn" type="submit">
-            Add contact
-          </button>
-        </form>
-      </>
-    );
-  }
-}
-
-const mapStateToProps = state => ({
-  items: state.contacts.items,
+const phoneRegExp = /^[^_]+$/;
+const SignupSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, 'Too Short!')
+    .max(30, 'Too Long!')
+    .required('Required'),
+  number: Yup.string()
+    // .min(1, 'Too Short!')
+    .max(14, 'Too Long!')
+    .matches(phoneRegExp, 'Invalid')
+    .required('Required'),
 });
 
-const mapDispatchToProps = {
-  submitForm: actions.createNewPhoneNumber,
-};
+const phoneNumberMask = [
+  '(',
+  /[0-9]/,
+  /\d/,
+  /\d/,
+  ')',
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];
 
-export default connect(mapStateToProps, mapDispatchToProps)(PhoneForm);
+function PhoneForm() {
+  const items = useSelector(selectors.getItems);
+
+  const dispatch = useDispatch();
+
+  const [alert, setAlert] = useState(false);
+
+  const submitForm = useCallback(
+    data => {
+      dispatch(operations.createNewPhoneNumber(data));
+    },
+    [dispatch],
+  );
+
+  return (
+    <div>
+      {alert && <h1>Already exist</h1>}
+      <Formik
+        initialValues={{ name: '', number: '' }}
+        validationSchema={SignupSchema}
+        onSubmit={async (values, { resetForm }) => {
+          if (items.some(el => el.name === values.name)) {
+            setAlert(true);
+            setTimeout(() => setAlert(false), 2000);
+          } else {
+            await submitForm(values);
+            resetForm();
+          }
+        }}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <div className={styles.formContainer}>
+              <div className={styles.fieldContainer}>
+                <Field
+                  placeholder="Enter name *"
+                  name="name"
+                  className={styles.input}
+                  autoComplete="off"
+                />
+                {errors.name && touched.name ? (
+                  <div className={styles.validation}>{errors.name}</div>
+                ) : null}
+              </div>
+              <div className={styles.fieldContainer}>
+                <Field
+                  name="number"
+                  className={styles.input}
+                  autoComplete="off"
+                >
+                  {({ field }) => (
+                    <MaskedInput
+                      {...field}
+                      mask={phoneNumberMask}
+                      id="phone"
+                      placeholder="Enter phone number *"
+                      type="text"
+                      className={styles.input}
+                      autoComplete="off"
+                    />
+                  )}
+                </Field>
+                {errors.number && touched.number ? (
+                  <div className={styles.validation}>{errors.number}</div>
+                ) : null}
+              </div>
+              <button
+                className={[styles.button, styles.white].join(' ')}
+                type="submit"
+              >
+                Add new contact
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+}
+
+export default PhoneForm;

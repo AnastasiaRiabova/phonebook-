@@ -1,67 +1,83 @@
-import React, { Component } from 'react';
-// import { v4 as uuidv4 } from 'uuid';
-import PhoneForm from './phoneForm/phoneForm.js';
-import RenderContact from './phoneForm/toRenderContact.js';
-import FindContact from './phoneForm/searchContact.js';
-import { CSSTransition } from 'react-transition-group';
-import s from './App.module.css';
-import c from '../components/phoneForm/searchContact.module.css';
-import { connect } from 'react-redux';
-import actions from '../redux/actions';
+import React, { useEffect, Suspense, lazy, useCallback } from 'react';
+import { Route, NavLink, Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import authOpr from '../redux/AuthPhonebook/authOperations';
+import routes from '../routes';
+import st from './App-header.module.css';
+import UserMenu from './AuthForm/UserMenu';
+import selectors from '../redux/AuthPhonebook/authSelectors';
+import PrivatRoute from './AuthForm/privatRoute';
+import PublickRoute from './AuthForm/publickRoute';
 
-export class App extends Component {
-  componentDidMount() {
-    const AllContact = localStorage.getItem('contacts');
-    const parsedContact = JSON.parse(AllContact);
+const Register = lazy(() => import('./AuthForm/UserRegister'));
+const Login = lazy(() => import('./AuthForm/UserLogin'));
+const Contacts = lazy(() => import('./ContactsView/ContactsView'));
+const Home = lazy(() => import('./HomeView/HomeView'));
 
-    if (parsedContact) {
-      this.props.setContacts(parsedContact);
+function App() {
+  const isAuth = useSelector(selectors.isAuthenticated);
+  const dispatch = useDispatch();
+  const onGetUser = useCallback(() => dispatch(authOpr.getCurrentUser()), [
+    dispatch,
+  ]);
+
+  useEffect(() => {
+    if (isAuth) {
+      onGetUser();
     }
-  }
+  }, [isAuth, onGetUser]);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.items !== prevProps.items) {
-      localStorage.setItem('contacts', JSON.stringify(this.props.items));
-    }
-  }
-
-  render() {
-    return (
-      <>
-        <div>
-          <CSSTransition
-            in={true}
-            appear={true}
-            timeout={500}
-            classNames={s}
-            unmountOnExit
+  return (
+    <div>
+      <div className={st.headerList}>
+        <p className={st.headerItems}>
+          <NavLink
+            to={routes.home}
+            exact={true}
+            activeStyle={{ color: 'white' }}
           >
-            <h1 className={s.titleItem}>Phonebook</h1>
-          </CSSTransition>
-          <PhoneForm />
-          <h2 className={s.text}>Contacts</h2>
-          <CSSTransition
-            in={this.props.items.length > 0}
-            timeout={250}
-            classNames={c}
-            unmountOnExit
-          >
-            <FindContact />
-          </CSSTransition>
-          <RenderContact />
-        </div>
-      </>
-    );
-  }
+            Home
+          </NavLink>
+        </p>
+        {
+          <p className={st.headerItems}>
+            <NavLink to={routes.contacts} activeStyle={{ color: 'white' }}>
+              Contacts
+            </NavLink>
+          </p>
+        }
+        {isAuth && <UserMenu />}
+        {!isAuth && (
+          <>
+            <p className={st.headerItems}>
+              <NavLink to={routes.register} activeStyle={{ color: 'white' }}>
+                Sing Up
+              </NavLink>
+            </p>
+            <p className={st.headerItems}>
+              <NavLink to={routes.login} activeStyle={{ color: 'white' }}>
+                LogIn
+              </NavLink>
+            </p>
+          </>
+        )}
+      </div>
+      <div className={st.container}>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Switch>
+            <Route exact path={routes.home} component={Home} />
+            <PublickRoute
+              path={routes.register}
+              restricted
+              component={Register}
+            />
+            <PublickRoute path={routes.login} restricted component={Login} />
+            <PrivatRoute path={routes.contacts} component={Contacts} />
+          </Switch>
+        </Suspense>
+      </div>
+    </div>
+  );
 }
 
-const mapStateToProps = state => ({
-  filter: state.contacts.filter,
-  items: state.contacts.items,
-});
-
-const mapDispatchToProps = {
-  setContacts: actions.setContacts,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

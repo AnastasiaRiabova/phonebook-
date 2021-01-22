@@ -18,6 +18,7 @@
   display: inline-block;
   margin-right: 20px;
   margin-left: 5px;
+  margin-bottom: 20px;
 }
 
 .btn {
@@ -25,23 +26,43 @@
   background-color: rgba(205, 191, 191, 0.585);
 }
 .btn-contact {
-  margin-left: 20px;
-  background-color: rgba(205, 191, 191, 0.585);
-  /* border-radius: 100%; */
+  margin-left: auto;
+  background-color: rgba(145, 122, 122, 0.585);
+  border-radius: 50%;
+  padding: 5px;
+  outline: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+}
+.btn-contact:active,
+:focus {
+  outline: none;
 }
 body {
-  background-image: url('./components/pexels-bongkarn-thanyakij-3774057.jpg');
+  background-image: url('../src/components/images/pexels-bongkarn-thanyakij-3774057.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  background-attachment: fixed;
+  /* height: 100vh; */
+}
+h2 {
+  margin: 0;
+  padding: 0;
+}
+p {
+  margin: 0;
+  padding: 0;
 }
 
 #root {
-  width: 400px;
-  height: 575px;
+  width: 600px;
+  height: 100%;
   background-color: rgba(225, 220, 213, 0.742);
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
   border-radius: 10px;
+  /* position: absolute; */
 }
