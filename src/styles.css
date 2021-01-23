@@ -72,6 +72,9 @@ p {
   body {
     font-size: 12px;
   }
+  input::placeholder {
+    color: rgba(165, 42, 42, 0.619);
+  }
 }
 @media (min-width: 621px) {
   #root {

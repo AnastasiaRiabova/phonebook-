@@ -68,7 +68,4 @@ ul {
   .listItem {
     margin-right: 20px;
   }
-  .listItem:last-child {
-    /* margin-bottom: 10px; */
-  }
 }

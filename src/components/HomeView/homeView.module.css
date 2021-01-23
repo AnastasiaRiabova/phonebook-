@@ -32,3 +32,11 @@
   margin-bottom: 20px;
   margin-left: 135px;
 }
+@media (max-width: 620px) {
+  .container {
+    margin-left: 50px;
+  }
+  .title {
+    margin-left: 20px;
+  }
+}
