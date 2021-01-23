@@ -16,7 +16,22 @@
   padding: 6px;
   text-align: center;
 }
-
+.buttonLogout {
+  width: 100px;
+  height: 30px;
+  color: brown;
+  font-family: Verdana;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  border-radius: 30px;
+  transition: all linear 250ms;
+  margin-left: auto;
+  cursor: pointer;
+  border: none;
+}
 /* .userNew {
   margin-right: 3px;
 } */
@@ -105,23 +120,6 @@
   color: white;
 }
 
-.buttonLogout {
-  width: 100px;
-  height: 30px;
-  color: brown;
-  font-family: Verdana;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  letter-spacing: 0.04em;
-  border-radius: 30px;
-  transition: all linear 250ms;
-  margin-left: auto;
-  cursor: pointer;
-  border: none;
-}
-
 .buttonLogout:hover,
 .buttonLogout:focus {
   border: 2px solid brown;
@@ -138,4 +136,16 @@
   line-height: 17px;
   letter-spacing: 0.04em;
   color: brown;
+}
+@media (max-width: 620px) {
+  .userN {
+    display: none;
+  }
+  .user {
+    font-size: 12px;
+  }
+  .buttonLogout,
+  .button {
+    font-size: 10px;
+  }
 }

@@ -1,6 +1,7 @@
 .titleItem {
   color: brown;
   margin-top: 10px;
+  margin-left: 10px;
 }
 .appear {
   transform: translateY(-100%);
@@ -17,6 +18,7 @@ h1 {
 
 .text {
   color: brown;
+  margin-left: 10px;
   /* margin-top: 10px; */
   padding: 20px 20px 20px 0px;
 }

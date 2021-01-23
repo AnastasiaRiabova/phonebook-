@@ -57,7 +57,6 @@ p {
 }
 
 #root {
-  width: 600px;
   height: 100%;
   background-color: rgba(225, 220, 213, 0.742);
   margin-left: auto;
@@ -65,4 +64,17 @@ p {
   margin-top: 50px;
   border-radius: 10px;
   /* position: absolute; */
+}
+@media (max-width: 620px) and (min-width: 320px) {
+  #root {
+    max-width: 300px;
+  }
+  body {
+    font-size: 12px;
+  }
+}
+@media (min-width: 621px) {
+  #root {
+    max-width: 600px;
+  }
 }

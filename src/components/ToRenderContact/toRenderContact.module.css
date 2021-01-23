@@ -22,6 +22,7 @@ ul {
   color: brown;
   font-weight: bold;
   display: flex;
+  align-items: baseline;
 }
 .emoji {
   margin-right: 20px;
@@ -61,4 +62,13 @@ ul {
   /* margin-left: 20px; */
   margin-bottom: 40px;
   /* margin-right: auto; */
+}
+
+@media (max-width: 620px) {
+  .listItem {
+    margin-right: 20px;
+  }
+  .listItem:last-child {
+    /* margin-bottom: 10px; */
+  }
 }
