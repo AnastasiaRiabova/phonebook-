@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import authOpr from '../../redux/AuthPhonebook/authOperations';
 import styles from './auth.module.css';
-
+import selectors from '../../redux/phoneBook/phonebook-selectors';
+import { CircularProgress } from '@material-ui/core';
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, 'Too Short!')
@@ -25,7 +26,7 @@ function UserRegister() {
     },
     [dispatch],
   );
-
+  const loading = useSelector(selectors.getLoading);
   return (
     <div>
       <Formik
@@ -73,9 +74,15 @@ function UserRegister() {
                   <div className={styles.validation}>{errors.password}</div>
                 ) : null}
               </div>
-              <button className={styles.button} type="submit">
-                Sing Up
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                {loading ? (
+                  <CircularProgress />
+                ) : (
+                  <button className={styles.button} type="submit">
+                    Sing Up
+                  </button>
+                )}
+              </div>
             </div>
           </Form>
         )}

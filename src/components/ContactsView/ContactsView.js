@@ -8,6 +8,7 @@ import s from './ContactsView.module.css';
 import c from '../SearchContacts/searchContact.module.css';
 import operations from '../../redux/phoneBook/phonebook-operations';
 import selectors from '../../redux/phoneBook/phonebook-selectors';
+import { CircularProgress } from '@material-ui/core';
 
 function ContactsView() {
   const items = useSelector(selectors.getItems);
@@ -35,7 +36,7 @@ function ContactsView() {
         <h1 className={s.titleItem}>Phonebook</h1>
       </CSSTransition>
       <PhoneForm />
-      {loading && <h1>Loading...</h1>}
+      {loading && <CircularProgress />}
       {items.length > 0 ? (
         <h2 className={s.text}>Your contacts</h2>
       ) : (

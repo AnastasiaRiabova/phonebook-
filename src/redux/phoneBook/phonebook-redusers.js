@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import actions from './actions';
+import authActions from '../AuthPhonebook/authActions';
 // import phonebookTypes from './phonebook-types';
 
 // const itemsReducer = (state = [], { type, payload }) => {
@@ -54,6 +55,13 @@ const loadingReducer = createReducer(false, {
   [actions.removeContactRequest]: () => true,
   [actions.removeContactSuccess]: () => false,
   [actions.removeContactError]: () => false,
+
+  [authActions.loginRequest]: () => true,
+  [authActions.loginSuccess]: () => false,
+  [authActions.logoutError]: () => false,
+  [authActions.registrationRequest]: () => true,
+  [authActions.registrationSuccess]: () => false,
+  [authActions.registrationError]: () => false,
 });
 const filterReducer = createReducer('', {
   [actions.filterContacts]: (state, { type, payload }) => payload,

@@ -8,6 +8,7 @@ import UserMenu from './AuthForm/UserMenu';
 import selectors from '../redux/AuthPhonebook/authSelectors';
 import PrivatRoute from './AuthForm/privatRoute';
 import PublickRoute from './AuthForm/publickRoute';
+import { CircularProgress } from '@material-ui/core';
 
 const Register = lazy(() => import('./AuthForm/UserRegister'));
 const Login = lazy(() => import('./AuthForm/UserLogin'));
@@ -63,7 +64,7 @@ function App() {
         )}
       </div>
       <div className={st.container}>
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={<CircularProgress />}>
           <Switch>
             <Route exact path={routes.home} component={Home} />
             <PublickRoute

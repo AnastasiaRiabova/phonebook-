@@ -6,6 +6,7 @@ import MaskedInput from 'react-text-mask';
 import operations from '../../redux/phoneBook/phonebook-operations';
 import selectors from '../../redux/phoneBook/phonebook-selectors';
 import styles from '../AuthForm/auth.module.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const phoneRegExp = /^[^_]+$/;
 const SignupSchema = Yup.object().shape({
@@ -39,7 +40,7 @@ const phoneNumberMask = [
 
 function PhoneForm() {
   const items = useSelector(selectors.getItems);
-
+  const loading = useSelector(state => state.contacts.loading);
   const dispatch = useDispatch();
 
   const [alert, setAlert] = useState(false);
@@ -103,12 +104,18 @@ function PhoneForm() {
                   <div className={styles.validation}>{errors.number}</div>
                 ) : null}
               </div>
-              <button
-                className={[styles.button, styles.white].join(' ')}
-                type="submit"
-              >
-                Add new contact
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                {loading ? (
+                  <CircularProgress />
+                ) : (
+                  <button
+                    className={[styles.button, styles.white].join(' ')}
+                    type="submit"
+                  >
+                    Add new contact
+                  </button>
+                )}
+              </div>
             </div>
           </Form>
         )}

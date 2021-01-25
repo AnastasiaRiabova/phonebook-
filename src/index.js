@@ -6,12 +6,13 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from './redux/store';
 import 'modern-normalize/modern-normalize.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import './styles.css';
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<CircularProgress />} persistor={persistor}>
         <App />
       </PersistGate>
     </BrowserRouter>
