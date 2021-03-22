@@ -51,6 +51,8 @@ function PhoneForm() {
     },
     [dispatch],
   );
+
+  
   return (
     <div>
       {alert && <h1>Already exist</h1>}
